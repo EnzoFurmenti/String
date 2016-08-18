@@ -26,7 +26,13 @@
     [self performSelector:@selector(outputHalfText:) withObject:text afterDelay:5.f];
     
     NSArray *array = [text componentsSeparatedByString:@"."];
+    NSLog(@"\nВывод всех предложений");
     NSLog(@"%@",array);
+    
+    NSArray *arrayClousesWithContainString = [self arrayClauseOfArray:array containString:@"NSString"];
+    NSLog(@"\nВывод предложений cо строкой NSString");
+    NSLog(@"%@",arrayClousesWithContainString);
+    
     
     
     // Override point for customization after application launch.
@@ -54,6 +60,30 @@
     
     NSLog(@"\nКол-во символов всего текста: %lu\nКол-во символов выходного текста:%lu\nВыходной текст:\n %@",(unsigned long)text.length,(unsigned long)length,printText);
     
+}
+
+
+- (NSArray*)arrayClauseOfArray:(NSArray*)array containString:(NSString*)containString{
+    NSMutableArray *mArray;
+    NSArray *arrayClauses = nil;
+    for (NSString *currentString in array)
+    {
+        if(!mArray)
+        {
+            mArray = [[NSMutableArray alloc] init];
+        }
+        
+        if([currentString containsString:containString])
+        {
+            [mArray addObject:currentString];
+        }
+    }
+    if([mArray count] > 0)
+    {
+        arrayClauses = [[NSArray alloc] initWithArray:mArray];
+    }
+    
+    return arrayClauses;
 }
 
 @end
