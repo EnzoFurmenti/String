@@ -35,6 +35,11 @@
     
     
     
+    NSArray *arrayReverseClause = [self arrayReverseClauseOfArray:arrayClousesWithContainString];
+    
+    NSLog(@"\nВывод reverse-предложений");
+    NSLog(@"%@",arrayReverseClause);
+    
     // Override point for customization after application launch.
     return YES;
 }
@@ -85,5 +90,53 @@
     
     return arrayClauses;
 }
+
+- (NSArray*)arrayReverseClauseOfArray:(NSArray*)array{
+    NSMutableArray *mArray;
+    NSArray *arrayClauses = nil;
+    for (NSString *currentString in array)
+    {
+        
+        NSArray *arrayWordOfCurrentString = [currentString componentsSeparatedByString:@" "];
+        NSMutableArray *arrayReverseCurrentString;
+        for (NSString *str in arrayWordOfCurrentString)
+        {
+            if(!arrayReverseCurrentString)
+            {
+                arrayReverseCurrentString = [[NSMutableArray alloc] init];
+            }
+            [arrayReverseCurrentString insertObject:str atIndex:0];
+        }
+        
+        NSString *totalCurrentReverseStr = nil;
+        for (NSString *str in arrayReverseCurrentString)
+        {
+            if(!totalCurrentReverseStr)
+            {
+                totalCurrentReverseStr = str;
+            }
+            else
+            {
+                NSString *totalStr =[ NSString stringWithFormat:@" %@",str];
+                totalCurrentReverseStr = [totalCurrentReverseStr stringByAppendingString:totalStr];
+            }
+        }
+        
+        if(!mArray)
+        {
+            mArray = [[NSMutableArray alloc] init];
+        }
+        
+            [mArray addObject:totalCurrentReverseStr];
+    }
+    if([mArray count] > 0)
+    {
+        arrayClauses = [[NSArray alloc] initWithArray:mArray];
+    }
+    
+    return arrayClauses;
+}
+
+
 
 @end
